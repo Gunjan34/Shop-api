@@ -13,6 +13,7 @@ model User {
   password  String
   role      Role     @default(CUSTOMER)
   orders    Order[]
+  refreshTokens RefreshToken[]
   createdAt DateTime @default(now())
 }
 
@@ -46,6 +47,18 @@ model OrderItem {
 
   @@index([orderId])
   @@index([productId])
+}
+
+model RefreshToken {
+  id        String    @id @default(uuid())
+  tokenHash String    @unique
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
 }
 
 enum Role {
