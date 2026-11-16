@@ -1,4 +1,4 @@
-import * as argon2 from 'argon2'
+import * as argon2 from 'argon2'  //Its a npm package used for password hashing
 import { authRepository } from './auth.repository.js'
 import { AppError } from '../../utils/AppError.js'
 import {
