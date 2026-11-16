@@ -2,8 +2,10 @@ import express from 'express'
 import type { Request, Response } from 'express'
 import cookieParser from 'cookie-parser'
 import { authRouter } from './modules/auth/auth.routes.js'
-import { errorHandler } from './middleware/errorHandler.js'
 import { productsRouter } from './modules/products/products.routes.js'
+import { ordersRouter } from './modules/orders/orders.routes.js'
+import { errorHandler } from './middleware/errorHandler.js'
+
 export const app = express()
 
 app.use(express.json())
@@ -15,6 +17,8 @@ app.get('/health', (_req: Request, res: Response) => {
 
 app.use('/auth', authRouter)
 app.use('/products', productsRouter)
+app.use('/orders', ordersRouter)
+
 app.use((_req: Request, res: Response) => {
   res.status(404).json({ error: 'Not found' })
 })
